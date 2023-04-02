@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import messagebox
 import json
 import login as lg
+from PIL import ImageTk, Image
+
 
 class Sign_up:
     def __init__(self,root):
@@ -10,6 +12,9 @@ class Sign_up:
         self.sign_up.configure(bg="#fff")
         self.sign_up.geometry("800x700")
         self.sign_up.resizable(False,False)
+        self.img = ImageTk.PhotoImage(Image.open("abc.jpg")) 
+        self.bg = Label(self.sign_up, image = self.img, border = 0,bg = 'white')
+        self.bg.place(x = 0,y = 0)
         self.Sign_in = Label(self.sign_up, text = "Sign up", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',23,'bold')).place(x = 370 , y = 100)
         self.User = Label(self.sign_up, text = "User", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',23,'bold')).place(x = 100 , y = 200)
         self.User_box = Entry(self.sign_up, fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',23,'bold'), textvariable = StringVar())

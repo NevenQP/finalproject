@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import json
 import sign_up as su
+import add_new_staff as ans
 
 class Login:
    def __init__(self, root):      
@@ -36,7 +37,10 @@ class Login:
       if user not in account:
          messagebox.showwarning("showinfo", "Invalide user")
       elif account[user] == password:
-         messagebox.showwarning("showinfo", "Success")
+         self.login.destroy()
+         root = Tk()
+         obj = ans.add_staff(root, user)
+         root.mainloop()
       else:
          messagebox.showwarning("showinfo", "Wrong pass")
    
