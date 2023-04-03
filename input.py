@@ -14,7 +14,7 @@ with open("customer.txt", "w") as f:
 
 with open("bill.txt", "w") as f:
     f.truncate(0)
-    f.write(json.dumps([['Id','Product','Cost','Staff','Time']]))
+    f.write(json.dumps([['Bill_id','Product_id','Cost','Staff_id','Time']]))
 
 with open("account.txt", "w") as f:
     f.truncate(0)
