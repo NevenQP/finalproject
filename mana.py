@@ -268,7 +268,7 @@ class Management:
         self.submit = Button(self.product_wrk_frame, text = "Submit", fg = '#FFFFFA', bg = '#86BBD8', font=('Montserrat Bold',16), command = self.search_product_data).place(x = 140, y = 350)
 
     def add_product_data(self):
-        id = self.add_product_id_e.get()
+        id = int(self.add_product_id_e.get()) 
         name = self.add_product_name_e.get()
         cpu = self.add_product_cpu_e.get()
         ram = self.add_product_ram_e.get()
@@ -276,7 +276,7 @@ class Management:
         os = self.add_product_os_e.get()
         color = self.add_product_color_e.get()
 
-        if id == '' or name == '' or os == '' or cpu == '' or ram == '' or hard_disk == '' or color == '':
+        if id < 0 or id == '' or name == '' or os == '' or cpu == '' or ram == '' or hard_disk == '' or color == '':
             mes = Label(self.product_wrk_frame, text = "Invalid", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.grid(row = 8, column = 1)
             mes.after(3000,lambda:mes.destroy())
@@ -365,12 +365,6 @@ class Management:
         self.add_customer_contact_number = Label(self.customer_wrk_frame, text = "Contact Number", fg = '#141204', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 4, column = 0)
         self.add_customer_contact_number_e = Entry(self.customer_wrk_frame, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
         self.add_customer_contact_number_e.grid(row = 4, column = 1)
-        self.add_customer_email = Label(self.customer_wrk_frame, text = "Email", fg = '#141204', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 5, column = 0)
-        self.add_customer_email_e = Entry(self.customer_wrk_frame, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
-        self.add_customer_email_e.grid(row = 5, column = 1)
-        self.add_customer_address = Label(self.customer_wrk_frame, text = "Address", fg = '#141204', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 6, column = 0)
-        self.add_customer_address_e = Entry(self.customer_wrk_frame, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
-        self.add_customer_address_e.grid(row = 6, column = 1)
 
         self.submit = Button(self.customer_wrk_frame, text = "Submit", fg = '#FFFFFA', bg = '#86BBD8', font=('Montserrat Bold',16), command = self.add_customer_data).grid(row = 7, column = 0)
 
@@ -393,19 +387,39 @@ class Management:
         self.submit = Button(self.customer_wrk_frame, text = "Submit", fg = '#FFFFFA', bg = '#86BBD8', font=('Montserrat Bold',16), command = self.search_customer_data).place(x = 140, y = 350)
 
     def add_customer_data(self):
-        id = self.add_customer_id_e.get()
+        id = int(self.add_customer_id_e.get())
         name = self.add_customer_name_e.get()
         dob = self.add_customer_dob_e.get()
         contact_number = self.add_customer_contact_number_e.get()
-        email = self.add_customer_email_e.get()
-        address = self.add_customer_address_e.get()
+        try:
+            contact_number = int(self.add_customer_contact_number_e.get())
+        except:
+            mes = Label(self.product_wrk_frame, text = "Enter information", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'))
+            mes.grid(row = 8, column = 1)
+            mes.after(3000,lambda:mes.destroy()) 
 
-        if id == '' or name == '' or address == '' or dob == '' or contact_number == '' or email == '':
-            mes = Label(self.customer_wrk_frame, text = "Invalid", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
+        if id == '' and name == '' and dob == '' and contact_number == '':
+            mes = Label(self.product_wrk_frame, text = "Enter information", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'))
+            mes.grid(row = 8, column = 1)
+            mes.after(3000,lambda:mes.destroy())       
+        elif id < 0 or id == '':
+            mes = Label(self.customer_wrk_frame, text = "Invalid id", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.grid(row = 7, column = 1)
             mes.after(3000,lambda:mes.destroy())
+        elif name == '':
+            mes = Label(self.customer_wrk_frame, text = "Invalid name", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
+            mes.grid(row = 7, column = 1)
+            mes.after(3000,lambda:mes.destroy())
+        elif dob == '':
+            mes = Label(self.customer_wrk_frame, text = "Invalid dob", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
+            mes.grid(row = 7, column = 1)
+            mes.after(3000,lambda:mes.destroy())
+        elif contact_number == '' or len(str(contact_number)) != 10 :
+            mes = Label(self.customer_wrk_frame, text = "Invalid contact number", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
+            mes.grid(row = 7, column = 1)
+            mes.after(3000,lambda:mes.destroy())   
         else:
-            self.customers.append([id, name, dob, contact_number, email, address])
+            self.customers.append([id, name, dob, contact_number])
             self.add_customer_id_e.delete(0, END)
             self.add_customer_name_e.delete(0, END)
             self.add_customer_dob_e.delete(0, END)
