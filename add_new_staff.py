@@ -3,6 +3,7 @@ from tkinter import messagebox
 import json
 from mana import *
 
+# #26547C: blue, #86BBD8: light blue, #F6AE2D: yellow, ##FFFFFA: trắng, #141204: đen
 class add_staff:
     def __init__(self, root, id):
         self.id = id
@@ -22,28 +23,28 @@ class add_staff:
         if Exist is FALSE:
             self.window = root
             self.window.title("New staff")
-            self.window.geometry("1280x720")
-            self.window.configure(bg="#fff")
+            self.window.geometry("720x300")
+            self.window.configure(bg = "#FFFFFA")
             self.window.resizable(False, False)
 
-            self.add_staff_tittle = Label(self.window, text = "New staff? Enter information", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold')).grid(row = 0, column = 0)
-            self.add_staff_name = Label(self.window, text = "Name", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold')).grid(row = 1, column = 0)
-            self.add_staff_name_e = Entry(self.window, fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'), textvariable = StringVar())
+            self.add_staff_tittle = Label(self.window, text = "New staff? Enter information", fg = '#26547C', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 0, column = 0)
+            self.add_staff_name = Label(self.window, text = "Name", fg = '#26547C', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 1, column = 0)
+            self.add_staff_name_e = Entry(self.window, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
             self.add_staff_name_e.grid(row = 1, column = 1)
-            self.add_staff_dob = Label(self.window, text = "Dob", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold')).grid(row = 2, column = 0)
-            self.add_staff_dob_e = Entry(self.window, fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'), textvariable = StringVar())
+            self.add_staff_dob = Label(self.window, text = "Dob", fg = '#26547C', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 2, column = 0)
+            self.add_staff_dob_e = Entry(self.window, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
             self.add_staff_dob_e.grid(row = 2, column = 1)
-            self.add_staff_contact_number = Label(self.window, text = "Contact Number", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold')).grid(row = 3, column = 0)
-            self.add_staff_contact_number_e = Entry(self.window, fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'), textvariable = StringVar())
+            self.add_staff_contact_number = Label(self.window, text = "Contact Number", fg = '#26547C', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 3, column = 0)
+            self.add_staff_contact_number_e = Entry(self.window, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
             self.add_staff_contact_number_e.grid(row = 3, column = 1)
-            self.add_staff_email = Label(self.window, text = "Email", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold')).grid(row = 4, column = 0)
-            self.add_staff_email_e = Entry(self.window, fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'), textvariable = StringVar())
+            self.add_staff_email = Label(self.window, text = "Email", fg = '#26547C', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 4, column = 0)
+            self.add_staff_email_e = Entry(self.window, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
             self.add_staff_email_e.grid(row = 4, column = 1)
-            self.add_staff_position = Label(self.window, text = "Position", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold')).grid(row = 5, column = 0)
-            self.add_staff_position_e = Entry(self.window, fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'), textvariable = StringVar())
+            self.add_staff_position = Label(self.window, text = "Position", fg = '#26547C', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 5, column = 0)
+            self.add_staff_position_e = Entry(self.window, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
             self.add_staff_position_e.grid(row = 5, column = 1)
 
-            self.submit = Button(self.window, text = "Submit", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'), command = self.add_staff_data).grid(row = 7, column = 0) 
+            self.submit = Button(self.window, text = "Submit", fg = '#FFFFFA', bg = '#86BBD8', font=('Montserrat Bold',16), command = self.add_staff_data).place(x = 310, y = 225) 
         else:
             root.destroy()
             root = Tk()
@@ -58,7 +59,7 @@ class add_staff:
         position = self.add_staff_position_e.get()
 
         if  name == '' or position == '' or dob == '' or contact_number == '' or email == '':
-            mes = Label(self.window, text = "Invalid", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'))
+            mes = Label(self.window, text = "Invalid", fg = '#26547C', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.grid(row = 6, column = 1)
             mes.after(3000,lambda:mes.destroy())
         else:
