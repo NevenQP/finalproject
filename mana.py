@@ -276,6 +276,13 @@ class Management:
         os = self.add_product_os_e.get()
         color = self.add_product_color_e.get()
 
+        try:
+            id = int(id)
+        except:
+            mes = Label(self.product_wrk_frame, text = "Invalid", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
+            mes.grid(row = 8, column = 1)
+            mes.after(3000,lambda:mes.destroy())           
+
         if id < 0 or id == '' or name == '' or os == '' or cpu == '' or ram == '' or hard_disk == '' or color == '':
             mes = Label(self.product_wrk_frame, text = "Invalid", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.grid(row = 8, column = 1)
@@ -346,7 +353,7 @@ class Management:
         
         for i in range(len(self.customers)):
             for j in range(len(self.customers[0])):
-                self.e = Label(self.customer_wrk_frame,bd = 5, width = 14, wraplength = 100, bg = '#FFFFFA' ,text = self.customers[i][j], fg='#141204',font=('Montserrat Bold',16))
+                self.e = Label(self.customer_wrk_frame,bd = 5, width = 20, wraplength = 200, bg = '#FFFFFA' ,text = self.customers[i][j], fg='#141204',font=('Montserrat Bold',16))
                 self.e.grid(row=i, column=j)
     
     def add_customer(self):
@@ -380,29 +387,38 @@ class Management:
     def search_customer(self):
         self.clear_frame()
 
-        self.add_customer_id = Label(self.customer_wrk_frame, text = "Search customer", fg = '#141204', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 0, column = 0)
-        self.add_customer_id = Label(self.customer_wrk_frame, text = "ID", fg = '#141204', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 1, column = 0)
-        self.add_customer_id_e = Entry(self.customer_wrk_frame,width = 12 ,fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
-        self.add_customer_id_e.grid(row = 1, column = 1)
+        self.add_customer_contact_number = Label(self.customer_wrk_frame, text = "Search customer", fg = '#141204', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 0, column = 0)
+        self.add_customer_contact_number = Label(self.customer_wrk_frame, text = "Contact Number", fg = '#141204', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 1, column = 0)
+        self.add_customer_contact_number_e = Entry(self.customer_wrk_frame,width = 12 ,fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
+        self.add_customer_contact_number_e.grid(row = 1, column = 1)
         self.submit = Button(self.customer_wrk_frame, text = "Submit", fg = '#FFFFFA', bg = '#86BBD8', font=('Montserrat Bold',16), command = self.search_customer_data).place(x = 140, y = 350)
 
     def add_customer_data(self):
-        id = int(self.add_customer_id_e.get())
+        id = self.add_customer_id_e.get()
         name = self.add_customer_name_e.get()
         dob = self.add_customer_dob_e.get()
         contact_number = self.add_customer_contact_number_e.get()
+        
+        if id == '' and name == '' and dob == '' and contact_number == '':
+            mes = Label(self.customer_wrk_frame, text = "Enter information", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'))
+            mes.grid(row = 8, column = 1)
+            mes.after(3000,lambda:mes.destroy())   
+        
         try:
-            contact_number = int(self.add_customer_contact_number_e.get())
+            id = int(id)
         except:
-            mes = Label(self.product_wrk_frame, text = "Enter information", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'))
+            mes = Label(self.customer_wrk_frame, text = "Invalid id", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'))
             mes.grid(row = 8, column = 1)
             mes.after(3000,lambda:mes.destroy()) 
 
-        if id == '' and name == '' and dob == '' and contact_number == '':
-            mes = Label(self.product_wrk_frame, text = "Enter information", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'))
+        try:
+            contact_number = int(contact_number)
+        except:
+            mes = Label(self.customer_wrk_frame, text = "Invalid contact number", fg = '#6874E8', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'))
             mes.grid(row = 8, column = 1)
-            mes.after(3000,lambda:mes.destroy())       
-        elif id < 0 or id == '':
+            mes.after(3000,lambda:mes.destroy()) 
+   
+        if int(id) < 0 or id == '':
             mes = Label(self.customer_wrk_frame, text = "Invalid id", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.grid(row = 7, column = 1)
             mes.after(3000,lambda:mes.destroy())
@@ -414,7 +430,7 @@ class Management:
             mes = Label(self.customer_wrk_frame, text = "Invalid dob", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.grid(row = 7, column = 1)
             mes.after(3000,lambda:mes.destroy())
-        elif contact_number == '' or len(str(contact_number)) != 10 :
+        elif contact_number == '' or len(str(contact_number)) != 10 or int(contact_number) < 0:
             mes = Label(self.customer_wrk_frame, text = "Invalid contact number", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.grid(row = 7, column = 1)
             mes.after(3000,lambda:mes.destroy())   
@@ -424,8 +440,6 @@ class Management:
             self.add_customer_name_e.delete(0, END)
             self.add_customer_dob_e.delete(0, END)
             self.add_customer_contact_number_e.delete(0, END)
-            self.add_customer_email_e.delete(0, END)
-            self.add_customer_address_e.delete(0, END)
             mes = Label(self.customer_wrk_frame, text = "Success", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.grid(row = 7, column = 1)
             mes.after(3000,lambda:mes.destroy())
@@ -450,22 +464,23 @@ class Management:
         mes.after(3000,lambda:mes.destroy())
 
     def search_customer_data(self):
-        id = self.add_customer_id_e.get()
-        if id == "ID":
-            mes = Label(self.customer_wrk_frame, text = "Id dont exist", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
+        contact_number = self.add_customer_contact_number_e.get()
+        if contact_number == "Contact Number":
+            mes = Label(self.customer_wrk_frame, text = "Contact Number dont exist", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.place(x = 400, y = 33)
             mes.after(3000,lambda:mes.destroy())
             return
         
         for i in range(len(self.customers)):
-            if self.customers[i][0] == id:
+            if self.customers[i][3] == contact_number:
                 for j in range(len(self.customers[0])):
-                    self.e = Label(self.customer_wrk_frame, bd = 5, width = 14, wraplength = 100, bg = '#FFFFFA' ,text = self.customers[0][j], fg='#141204',font=('Montserrat Bold',16))
+                    self.e = Label(self.customer_wrk_frame, bd = 5, width = 20, wraplength = 200, bg = '#FFFFFA' ,text = self.customers[0][j], fg='#141204',font=('Montserrat Bold',16))
                     self.e.grid(row=2, column=j)
-                    self.e = Label(self.customer_wrk_frame, bd = 5, width = 14, wraplength = 100, bg = '#FFFFFA' ,text = self.customers[i][j], fg='#26547C',font=('Montserrat Bold',16))
+                    self.e = Label(self.customer_wrk_frame, bd = 5, width = 20, wraplength = 200, bg = '#FFFFFA' ,text = self.customers[i][j], fg='#26547C',font=('Montserrat Bold',16))
                     self.e.grid(row=3, column=j)
                 return
-        mes = Label(self.customer_wrk_frame, text = "Id dont exist", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
+        
+        mes = Label(self.customer_wrk_frame, text = "Contact Number dont exist", fg = '#86BBD8', bg = '#FFFFFA', font=('Montserrat Bold',16))
         mes.place(x = 400, y = 33)
         mes.after(3000,lambda:mes.destroy())
     # #26547C: blue, #86BBD8: light blue, #F6AE2D: yellow
